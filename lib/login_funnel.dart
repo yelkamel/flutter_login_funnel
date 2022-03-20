@@ -123,7 +123,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
 
   void onLogin() {
     setState(() {
-      createAccount = true;
+      createAccount = false;
       step = LoginStep.email;
     });
   }
