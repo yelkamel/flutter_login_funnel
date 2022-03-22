@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Add example and start the documentation
+
 ## 0.0.2
 
 * Fix license
