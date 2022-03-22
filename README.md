@@ -1,20 +1,17 @@
-# 👥 flutter_login_funnel 😁
+# 😁 flutter_login_funnel 👥
 
 It's a **UX design** package to help you to build a login or register process quickly and simply.
 You can but your UI widget with the builder parameter but all the logic transition will be **auto manage**.
-You can also use play audio files from **network** using their url, **radios/livestream** and **local files**
 
 **This can be used with any Authentification service provider with email/password**
 
-[![sample1](./medias/login_funnel_preview.gif)](https://github.com/yelkamel/flutter_login_funnel)
-
 <p align="center">
   <a href='https://imgur.com/7RqxtPc.mp4'>
-    <img src='https://github.com/yelkamel/flutter_login_funnel/flutter_login/medias/login_funnel_preview.gif' width=320>
+    <img src='https://github.com/yelkamel/flutter_login_funnel/blob/master/medias/login_funnel_preview.gif' width=320>
   </a>
 </p>
 
-## 📥 Import
+## 😃 Import
 
 ```yaml
 dependencies:
@@ -113,7 +110,7 @@ email |   `String`     | <sub>The email getted from the funnel.</sub>
 password | `String` | <sub>The password getted from the funnel.</sub>
 
 
-## 🙄 Widget Utils
+## 😎 Widget Utils
 
  LoginFunnelRegisterOrConnectWidgetUtils() 
  
@@ -141,6 +138,16 @@ password | `String` | <sub>The password getted from the funnel.</sub>
             connectButtonLabel: "Connexion",
           )
 ```
+
+## 🥳 Idea Todo
+
+Feature | Difficulty | Description
+-------- |------------| ---------------
+Authentification button for Fb, Google, Apple, etc.. |   🔥    | <sub> ☑️</sub>
+Label input with microphone |  🔥🔥  | <sub> ☑️ </sub>
+Background image animation transition |   🔥🔥     | <sub> ☑️ </sub>
+Onboarding process funnel classique | 🔥 | <sub> ☑️ </sub>
+
 
 ## License
 
