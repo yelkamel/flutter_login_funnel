@@ -27,7 +27,6 @@ class _LoginInputState extends State<LoginInput> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("[Login] keyValue: LoginInputText-${widget.step}");
     double coef = 0.3;
     double fontSizedRatio = 1;
 

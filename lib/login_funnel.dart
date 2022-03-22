@@ -106,14 +106,12 @@ class _LoginFunnelState extends State<LoginFunnel> {
   }
 
   void goNext() {
-    debugPrint("[LoginFunnel]: Go Next from $step");
     if (step == LoginStep.pwd) pwdFinish();
     if (step == LoginStep.email) emailFinish();
     if (step == LoginStep.name) nameFinish();
   }
 
   void goBack() {
-    debugPrint("[LoginFunnel]: Go Back from $step");
     final close = step == LoginStep.init && widget.onClose != null;
     if (close) widget.onClose?.call();
 
@@ -151,8 +149,6 @@ class _LoginFunnelState extends State<LoginFunnel> {
   }
 
   Widget buildContent() {
-    debugPrint("[LoginFunnel]: Build step: $step");
-
     switch (step) {
       case LoginStep.loading:
         return Center(
