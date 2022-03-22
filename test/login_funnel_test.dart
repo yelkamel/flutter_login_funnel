@@ -297,7 +297,7 @@ void testAuthCase() {
           onFinish: () {
             isFinish = true;
           },
-          loadingWidget: SizedBox(),
+          loadingWidget: const SizedBox(),
         ),
       ));
 
@@ -311,6 +311,29 @@ void testAuthCase() {
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
       expect(isFinish, true);
+    });
+
+    testWidgets("User try to signin.", (WidgetTester tester) async {
+      bool createAccountTmp = true;
+      await tester.pumpWidget(MaterialApp(
+        home: LoginFunnel(
+          onAuthSubmit: (createdAccount, name, email, pwd) async {
+            createAccountTmp = createdAccount;
+            return false;
+          },
+        ),
+      ));
+
+      await tester.tap(find.byKey(const ValueKey('LoginActionDefault-signin')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
+      await tester.pumpAndSettle();
+      expect(
+        createAccountTmp,
+        false,
+      );
     });
   });
 }

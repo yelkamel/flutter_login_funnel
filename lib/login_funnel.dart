@@ -1,19 +1,41 @@
 part of flutter_login_funnel;
 
 class LoginFunnel extends StatefulWidget {
+  /// This function is call when the user try to back at the first step.
   final void Function()? onClose;
+
+  /// This widget will be show when it's loading state.
   final Widget? loadingWidget;
+
+  /// This widget will be show as back button.
   final Widget? backWidget;
+  // When the the user is logged in
+  // If you use Auth stream strategy this is no needed.
   final void Function()? onFinish;
+
+  /// this validation function is to validate the Name if it's return false it's will don't go next.
   final bool Function(String)? onNameValidation;
+
+  /// this validation function is to validate the Email if it's return false it's will don't go next.
   final bool Function(String)? onEmailValidation;
+
+  /// this validation function is to validate the Password if it's return false it's will don't go next.
   final bool Function(String)? onPasswordValidation;
+
+  /// Where you have to call your Authentification service provider with the email/password (and name if it's a registration)
+  /// if the provider doesn't accept you can return false to stop the tunnel otherwise true
+  /// Tips: don't forget to popup a snackbar to explain why the provider didn't accepte.
   final Future<bool> Function(bool, String, String, String)? onAuthSubmit;
+
+  // This will be show in the first step to as the use to connect or login
+  // use onConnect to call login and onRegister to register an user.
   final Widget Function(
     BuildContext,
     void Function() onConnect,
     void Function() onRegister,
   )? actionBuilder;
+
+  /// This will be show in the top for each step
   final Widget Function(
     BuildContext,
     LoginStep,
