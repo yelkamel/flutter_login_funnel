@@ -3,4 +3,8 @@ class LoginModel {
   String email = '';
   String password = '';
   bool createAccount = false;
+
+  @override
+  String toString() =>
+      "createAccount: $createAccount / name: $name / email: $email / password: $password";
 }

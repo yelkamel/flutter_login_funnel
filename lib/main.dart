@@ -111,7 +111,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
     final password = inputController.text.trim();
     final res = widget.onPasswordValidation?.call(password) ?? true;
     if (!res) return;
-    loginModel.email = password;
+    loginModel.password = password;
 
     setState(() => step = LoginStep.loading);
     final authRes = await widget.onAuthSubmit?.call(loginModel) ?? false;
