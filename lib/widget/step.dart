@@ -63,7 +63,7 @@ class LoginStepWidget extends StatelessWidget {
                 key: Key(step.toString()),
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: titleBuilder?.call(context, step) ??
-                    LoginTopSectionDefault(step: step),
+                    LoginFunnelTopSectionWidgetUtils(step: step),
               ),
             ),
           ),

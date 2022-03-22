@@ -101,7 +101,46 @@ actionsBuilder | `Builder` | <sub>This is to build actions button for by step.</
 loadingWidget | `Widget` | <sub>This widget will be show when it's loading state.</sub>
 backWidget | `Function` | <sub>This widget will be show as back button.</sub>
 
+## 🙃 Model
 
+Login Model Data:
+
+Property |   Type     | Description
+-------- |------------| ---------------
+createAccount |   `bool`     | <sub> A bool that contains if the user selected registration or connexion process.</sub>
+name | `String` | <sub>The name getted from the funnel.</sub>
+email |   `String`     | <sub>The email getted from the funnel.</sub>
+password | `String` | <sub>The password getted from the funnel.</sub>
+
+
+## 🙄 Widget Utils
+
+ LoginFunnelRegisterOrConnectWidgetUtils() 
+ 
+ This widget is to show the first step of the funnel and let the choice of the user if he wanna to do a registration or a connexion.
+
+  ```Dart
+ LoginFunnelTopSectionWidgetUtils(  
+            step: step,
+            emailLabel: "Votre email ?",
+            nameLabel: "Votre Prénom ?",
+            passwordLabel: "Votre mot de passe ?",
+            )
+```
+
+ LoginFunnelTopSectionWidgetUtils()
+
+ This is a widget that show the label on top of the input for the step Name, Email or Password.
+
+ ```Dart
+ LoginRegisterOrConnectDefault(
+            onLogin: onConnect,
+            onRegister: onRegister,
+            registerButtonLabel: "Inscription",
+            alreadyAccountLabel: "Vous avez déjà un compte ?",
+            connectButtonLabel: "Connexion",
+          )
+```
 
 ## License
 

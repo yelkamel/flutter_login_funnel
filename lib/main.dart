@@ -3,6 +3,7 @@ library flutter_login_funnel;
 import 'package:flutter/material.dart';
 
 import 'layou_package/fade_intout_transitionner.dart';
+import 'model/login_model.dart';
 import 'widget/step.dart';
 
 import './layou_package/extension_string.dart';
@@ -37,14 +38,14 @@ class LoginFunnel extends StatefulWidget {
   /// Where you have to call your Authentification service provider with the email/password (and name if it's a registration)
   /// if the provider doesn't accept you can return false to stop the tunnel otherwise true
   /// Tips: don't forget to popup a snackbar to explain why the provider didn't accepte.
-  final Future<bool> Function(bool, String, String, String)? onAuthSubmit;
+  final Future<bool> Function(LoginModel)? onAuthSubmit;
 
   // This will be show in the first step to as the use to connect or login
   // use onConnect to call login and onRegister to register an user.
   final Widget Function(
     BuildContext,
-    void Function() onConnect,
     void Function() onRegister,
+    void Function() onConnect,
   )? registerOrConnectBuilder;
 
   /// This will be show in the top for each step.
@@ -57,6 +58,7 @@ class LoginFunnel extends StatefulWidget {
   final Widget Function(
     BuildContext,
     LoginStep,
+    LoginModel,
   )? actionsBuilder;
 
   const LoginFunnel({
@@ -83,37 +85,36 @@ class _LoginFunnelState extends State<LoginFunnel> {
   LoginStep step = LoginStep.init;
 
   bool createAccount = true;
-  String name = '';
-  String email = '';
-  String password = '';
+  LoginModel loginModel = LoginModel();
 
   void nameFinish() {
-    name = inputController.text.trim().capitalizeFirst;
+    final name = inputController.text.trim().capitalizeFirst;
     final res = widget.onNameValidation?.call(name) ?? true;
     if (!res) return;
+    loginModel.name = name;
 
     inputController.text = "";
     setState(() => step = LoginStep.email);
   }
 
   void emailFinish() {
-    email = inputController.text.trim();
+    final email = inputController.text.trim();
     final res = widget.onEmailValidation?.call(email) ?? true;
     if (!res) return;
+    loginModel.email = email;
+
     setState(() => step = LoginStep.pwd);
     inputController.text = "";
   }
 
   void pwdFinish() async {
-    password = inputController.text.trim();
+    final password = inputController.text.trim();
     final res = widget.onPasswordValidation?.call(password) ?? true;
     if (!res) return;
+    loginModel.email = password;
 
     setState(() => step = LoginStep.loading);
-
-    final authRes =
-        await widget.onAuthSubmit?.call(createAccount, name, email, password) ??
-            false;
+    final authRes = await widget.onAuthSubmit?.call(loginModel) ?? false;
 
     if (!authRes) {
       setState(() => step = LoginStep.pwd);
@@ -138,12 +139,12 @@ class _LoginFunnelState extends State<LoginFunnel> {
 
     if (step == LoginStep.email) {
       step = createAccount ? LoginStep.name : LoginStep.init;
-      inputController.text = name;
+      inputController.text = loginModel.name;
     }
 
     if (step == LoginStep.pwd) {
       setState(() => step = LoginStep.email);
-      inputController.text = email;
+      inputController.text = loginModel.email;
     }
     if (step == LoginStep.loading) setState(() => step = LoginStep.pwd);
   }
@@ -154,17 +155,13 @@ class _LoginFunnelState extends State<LoginFunnel> {
   }
 
   void onRegister() {
-    setState(() {
-      createAccount = true;
-      step = LoginStep.name;
-    });
+    setState(() => step = LoginStep.name);
+    loginModel.createAccount = true;
   }
 
-  void onLogin() {
-    setState(() {
-      createAccount = false;
-      step = LoginStep.email;
-    });
+  void onConnect() {
+    setState(() => step = LoginStep.email);
+    loginModel.createAccount = false;
   }
 
   Widget buildContent() {
@@ -176,10 +173,10 @@ class _LoginFunnelState extends State<LoginFunnel> {
         );
       case LoginStep.init:
         return widget.registerOrConnectBuilder
-                ?.call(context, onRegister, onLogin) ??
-            LoginRegisterOrConnectDefault(
-              onLogin: onLogin,
+                ?.call(context, onRegister, onConnect) ??
+            LoginFunnelRegisterOrConnectWidgetUtils(
               onRegister: onRegister,
+              onConnect: onConnect,
             );
       default:
         return LoginStepWidget(
@@ -203,7 +200,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
         ),
         actions: [
           if (widget.actionsBuilder != null)
-            widget.actionsBuilder!(context, step)
+            widget.actionsBuilder!(context, step, loginModel)
         ],
       ),
       body: FadeInOutTransitionner(child: buildContent()),

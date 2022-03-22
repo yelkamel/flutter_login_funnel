@@ -1,11 +1,11 @@
 part of flutter_login_funnel;
 
-class LoginTopSectionDefault extends StatelessWidget {
+class LoginFunnelTopSectionWidgetUtils extends StatelessWidget {
   final LoginStep step;
   final String emailLabel;
   final String nameLabel;
   final String passwordLabel;
-  const LoginTopSectionDefault({
+  const LoginFunnelTopSectionWidgetUtils({
     Key? key,
     required this.step,
     this.emailLabel = "What is your email ?",

@@ -14,7 +14,7 @@ void testValidationCallBack() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
           onEmailValidation: (_) => _.length > 3,
@@ -35,7 +35,7 @@ void testValidationCallBack() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
           onEmailValidation: (_) => _.length > 3,
@@ -62,7 +62,7 @@ void testValidationCallBack() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
           onNameValidation: (_) => _.length > 3,
@@ -82,7 +82,7 @@ void testValidationCallBack() {
     testWidgets("let passe if the name is valid.", (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
           onEmailValidation: (_) => _.length > 3,
@@ -109,7 +109,7 @@ void testValidationCallBack() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
           onPasswordValidation: (_) => _.length > 3,
@@ -131,7 +131,7 @@ void testValidationCallBack() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return true;
           },
           onPasswordValidation: (_) => _.length > 3,
@@ -163,7 +163,7 @@ void testStepperChain() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
         ),
@@ -176,7 +176,7 @@ void testStepperChain() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
         ),
@@ -195,7 +195,7 @@ void testStepperChain() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
         ),
@@ -217,7 +217,7 @@ void testStepperChain() {
       // Build our app and trigger a frame.
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
         ),
@@ -242,7 +242,7 @@ void testStepperChain() {
       // Build our app and trigger a frame.
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
         ),
@@ -271,7 +271,7 @@ void testAuthCase() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return false;
           },
         ),
@@ -297,7 +297,7 @@ void testAuthCase() {
       bool isFinish = false;
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
+          onAuthSubmit: (loginModel) async {
             return true;
           },
           onFinish: () {
@@ -323,8 +323,8 @@ void testAuthCase() {
       bool createAccountTmp = true;
       await tester.pumpWidget(MaterialApp(
         home: LoginFunnel(
-          onAuthSubmit: (createdAccount, name, email, pwd) async {
-            createAccountTmp = createdAccount;
+          onAuthSubmit: (loginModel) async {
+            createAccountTmp = loginModel.createAccount;
             return false;
           },
         ),

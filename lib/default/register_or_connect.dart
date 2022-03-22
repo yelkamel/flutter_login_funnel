@@ -1,16 +1,16 @@
 part of flutter_login_funnel;
 
-class LoginRegisterOrConnectDefault extends StatelessWidget {
-  final void Function() onLogin;
+class LoginFunnelRegisterOrConnectWidgetUtils extends StatelessWidget {
   final void Function() onRegister;
+  final void Function() onConnect;
   final String registerButtonLabel;
   final String alreadyAccountLabel;
 
   final String connectButtonLabel;
-  const LoginRegisterOrConnectDefault({
+  const LoginFunnelRegisterOrConnectWidgetUtils({
     Key? key,
-    required this.onLogin,
     required this.onRegister,
+    required this.onConnect,
     this.registerButtonLabel = "Register",
     this.alreadyAccountLabel = "Already an account ?",
     this.connectButtonLabel = 'Sign In',
@@ -47,7 +47,7 @@ class LoginRegisterOrConnectDefault extends StatelessWidget {
                       ),
                 ),
                 RawMaterialButton(
-                  onPressed: onLogin,
+                  onPressed: onConnect,
                   key: const ValueKey('LoginRegisterOrConnectDefault-signin'),
                   child: Text(
                     connectButtonLabel,
