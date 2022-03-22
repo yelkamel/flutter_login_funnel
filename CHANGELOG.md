@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Better default widget + Add actions button builder
+
 ## 0.0.3
 
 * Add example and start the documentation

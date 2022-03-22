@@ -1,19 +1,25 @@
 part of flutter_login_funnel;
 
-class LoginActionDefault extends StatelessWidget {
+class LoginRegisterOrConnectDefault extends StatelessWidget {
   final void Function() onLogin;
   final void Function() onRegister;
+  final String registerButtonLabel;
+  final String alreadyAccountLabel;
 
-  const LoginActionDefault({
+  final String connectButtonLabel;
+  const LoginRegisterOrConnectDefault({
     Key? key,
     required this.onLogin,
     required this.onRegister,
+    this.registerButtonLabel = "Register",
+    this.alreadyAccountLabel = "Already an account ?",
+    this.connectButtonLabel = 'Sign In',
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      key: const ValueKey('LoginActionDefault'),
+      key: const ValueKey('LoginRegisterOrConnectDefault'),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -22,8 +28,8 @@ class LoginActionDefault extends StatelessWidget {
             MaterialButton(
               color: Theme.of(context).colorScheme.primary,
               child: Text(
-                "Register",
-                key: const ValueKey('LoginActionDefault-register'),
+                registerButtonLabel,
+                key: const ValueKey('LoginRegisterOrConnectDefault-register'),
                 style: Theme.of(context).textTheme.button!.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),
@@ -35,16 +41,16 @@ class LoginActionDefault extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Already an account ?',
+                  alreadyAccountLabel,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
                 RawMaterialButton(
                   onPressed: onLogin,
-                  key: const ValueKey('LoginActionDefault-signin'),
+                  key: const ValueKey('LoginRegisterOrConnectDefault-signin'),
                   child: Text(
-                    'Sign In',
+                    connectButtonLabel,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontWeight: FontWeight.w700,
                           color: Theme.of(context).colorScheme.secondary,

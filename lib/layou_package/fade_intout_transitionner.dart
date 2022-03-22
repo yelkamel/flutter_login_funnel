@@ -1,4 +1,4 @@
-part of flutter_login_funnel;
+import 'package:flutter/material.dart';
 
 class FadeInOutTransitionner extends StatelessWidget {
   final Widget child;

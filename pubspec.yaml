@@ -1,7 +1,7 @@
 name: flutter_login_funnel
 description: An easy to use Flutter widgets to do the UI UX of a login with nice animation transition.
 
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/yelkamel/flutter_login_funnel
 
 environment:

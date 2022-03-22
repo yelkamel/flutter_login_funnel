@@ -1,6 +1,11 @@
-part of flutter_login_funnel;
+import 'package:flutter/material.dart';
 
-class LoginTop extends StatelessWidget {
+import '../layou_package/fade_intout_transitionner.dart';
+import '../main.dart';
+import 'inputs.dart';
+import 'next_button.dart';
+
+class LoginStepWidget extends StatelessWidget {
   final bool? enableClose;
   final TextEditingController inputCtrl;
   final LoginStep step;
@@ -12,7 +17,7 @@ class LoginTop extends StatelessWidget {
     LoginStep,
   )? titleBuilder;
 
-  const LoginTop({
+  const LoginStepWidget({
     this.enableClose,
     Key? key,
     required this.inputCtrl,
@@ -58,7 +63,7 @@ class LoginTop extends StatelessWidget {
                 key: Key(step.toString()),
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 child: titleBuilder?.call(context, step) ??
-                    LoginFunnelTitleDefault(step: step),
+                    LoginTopSectionDefault(step: step),
               ),
             ),
           ),

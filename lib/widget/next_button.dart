@@ -1,4 +1,7 @@
-part of flutter_login_funnel;
+import 'package:flutter/material.dart';
+import 'package:tap_debouncer/tap_debouncer.dart';
+
+import '../main.dart';
 
 class LoginNextButton extends StatelessWidget {
   final LoginStep step;

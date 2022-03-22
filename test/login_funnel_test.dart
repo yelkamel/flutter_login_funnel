@@ -20,7 +20,8 @@ void testValidationCallBack() {
           onEmailValidation: (_) => _.length > 3,
         ),
       ));
-      await tester.tap(find.byKey(const ValueKey('LoginActionDefault-signin')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-signin')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
@@ -40,7 +41,8 @@ void testValidationCallBack() {
           onEmailValidation: (_) => _.length > 3,
         ),
       ));
-      await tester.tap(find.byKey(const ValueKey('LoginActionDefault-signin')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-signin')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.enterText(
@@ -66,8 +68,8 @@ void testValidationCallBack() {
           onNameValidation: (_) => _.length > 3,
         ),
       ));
-      await tester
-          .tap(find.byKey(const ValueKey('LoginActionDefault-register')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-register')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
@@ -86,8 +88,8 @@ void testValidationCallBack() {
           onEmailValidation: (_) => _.length > 3,
         ),
       ));
-      await tester
-          .tap(find.byKey(const ValueKey('LoginActionDefault-register')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-register')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.enterText(
@@ -113,7 +115,8 @@ void testValidationCallBack() {
           onPasswordValidation: (_) => _.length > 3,
         ),
       ));
-      await tester.tap(find.byKey(const ValueKey('LoginActionDefault-signin')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-signin')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
@@ -135,7 +138,8 @@ void testValidationCallBack() {
           loadingWidget: SizedBox(),
         ),
       ));
-      await tester.tap(find.byKey(const ValueKey('LoginActionDefault-signin')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-signin')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
@@ -165,7 +169,8 @@ void testStepperChain() {
         ),
       ));
       await tester.pumpAndSettle();
-      expect(find.byKey(const ValueKey('LoginActionDefault')), findsOneWidget);
+      expect(find.byKey(const ValueKey('LoginRegisterOrConnectDefault')),
+          findsOneWidget);
     });
     testWidgets("Tap Register start with Name step.",
         (WidgetTester tester) async {
@@ -177,8 +182,8 @@ void testStepperChain() {
         ),
       ));
 
-      await tester
-          .tap(find.byKey(const ValueKey('LoginActionDefault-register')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-register')));
       await tester.pumpAndSettle();
       expect(
         find.byKey(const ValueKey('LoginInputText-LoginStep.name')),
@@ -196,8 +201,8 @@ void testStepperChain() {
         ),
       ));
 
-      await tester
-          .tap(find.byKey(const ValueKey('LoginActionDefault-register')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-register')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
@@ -218,8 +223,8 @@ void testStepperChain() {
         ),
       ));
 
-      await tester
-          .tap(find.byKey(const ValueKey('LoginActionDefault-register')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-register')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
@@ -243,7 +248,8 @@ void testStepperChain() {
         ),
       ));
 
-      await tester.tap(find.byKey(const ValueKey('LoginActionDefault-signin')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-signin')));
       await tester.pumpAndSettle();
       expect(
         find.byKey(const ValueKey('LoginInputText-LoginStep.email')),
@@ -271,8 +277,8 @@ void testAuthCase() {
         ),
       ));
 
-      await tester
-          .tap(find.byKey(const ValueKey('LoginActionDefault-register')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-register')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
@@ -301,8 +307,8 @@ void testAuthCase() {
         ),
       ));
 
-      await tester
-          .tap(find.byKey(const ValueKey('LoginActionDefault-register')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-register')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();
@@ -324,7 +330,8 @@ void testAuthCase() {
         ),
       ));
 
-      await tester.tap(find.byKey(const ValueKey('LoginActionDefault-signin')));
+      await tester.tap(
+          find.byKey(const ValueKey('LoginRegisterOrConnectDefault-signin')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('LoginNextButton')));
       await tester.pumpAndSettle();

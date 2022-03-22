@@ -51,7 +51,7 @@ or
             return Text("init");
         }
       },
-      actionBuilder: (context, onConnect, onRegister) => Center(
+      registerOrConnectBuilder: (context, onConnect, onRegister) => Center(
         child: Column(
           children: [
             MaterialButton(
@@ -65,7 +65,11 @@ or
           ],
         ),
       ),
-
+      actionsBuilder: (context, step) => step == LoginStep.password ? 
+            MaterialButton(
+              onPressed: onConnect,
+              child: Text("Reset Password request"),
+            ) : const SizedBox();
       onAuthSubmit: (createAccount, name, email, pwd) async {
         if (!createAccount) {
           final res = await Auth.signInWithEmailAndPassword(email, pwd);
@@ -92,7 +96,8 @@ onEmailValidation | `Function` | <sub>this validation function is to validate th
 onPasswordValidation |   `Function`     | <sub>this validation function is to validate the password if it's return false it's will don't go next.</sub>
 onNameValidation | `Function` | <sub>this validation function is to validate the name if it's return false it's will don't go next.</sub>
 titleBuilder | `Builder` | <sub>This will be show in the top for each step.</sub>
-actionBuilder | `Builder` | <sub>This will be show in the first step to as the use to connect or login use onConnect to call login and onRegister to register an user.</sub>
+registerOrConnectBuilder | `Builder` | <sub>This will be show in the first step to as the use to connect or login use onConnect to call login and onRegister to register an user.</sub>
+actionsBuilder | `Builder` | <sub>This is to build actions button for by step.</sub>
 loadingWidget | `Widget` | <sub>This widget will be show when it's loading state.</sub>
 backWidget | `Function` | <sub>This widget will be show as back button.</sub>
 

@@ -1,4 +1,6 @@
-part of flutter_login_funnel;
+import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 class LoginInput extends StatefulWidget {
   final TextEditingController inputCtrl;

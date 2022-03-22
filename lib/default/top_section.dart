@@ -1,18 +1,26 @@
 part of flutter_login_funnel;
 
-class LoginFunnelTitleDefault extends StatelessWidget {
+class LoginTopSectionDefault extends StatelessWidget {
   final LoginStep step;
-  const LoginFunnelTitleDefault({Key? key, required this.step})
-      : super(key: key);
+  final String emailLabel;
+  final String nameLabel;
+  final String passwordLabel;
+  const LoginTopSectionDefault({
+    Key? key,
+    required this.step,
+    this.emailLabel = "What is your email ?",
+    this.nameLabel = "Your name ?",
+    this.passwordLabel = "What is your password ?",
+  }) : super(key: key);
 
   String headerTitle() {
     switch (step) {
       case LoginStep.email:
-        return 'Email';
+        return emailLabel;
       case LoginStep.name:
-        return 'Name';
+        return nameLabel;
       case LoginStep.pwd:
-        return "Password";
+        return passwordLabel;
       default:
         return "";
     }
