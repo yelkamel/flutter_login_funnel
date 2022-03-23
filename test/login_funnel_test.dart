@@ -135,7 +135,7 @@ void testValidationCallBack() {
             return true;
           },
           onPasswordValidation: (_) => _.length > 3,
-          loadingWidget: SizedBox(),
+          loadingWidget: const SizedBox(),
         ),
       ));
       await tester.tap(

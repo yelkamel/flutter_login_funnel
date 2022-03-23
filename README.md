@@ -1,21 +1,21 @@
 # 😁 flutter_login_funnel 👥
 
-It's a **UX design** package to help you to build a login or register process quickly and simply.
-You can but your UI widget with the builder parameter but all the logic transition will be **auto manage**.
+It's a **UX design** package to help you to build a login or register process quickly, simply and totaly responsive.
+You can personnalize it by using your widget with the builder parameter but all the logic transition will be **auto manage**.
+The transition is in FadeInOut for the label and the **keyboard doesn't change** when we change steps.
+There is a  **progressbar** for the user to know when it's completed and a simple animation when the user start typing.
 
 **This can be used with any Authentification service provider with email/password**
 
-<p align="center">
-  <a href='https://imgur.com/7RqxtPc.mp4'>
-    <img src='https://github.com/yelkamel/flutter_login_funnel/blob/master/medias/login_funnel_preview.gif' width=320>
-  </a>
-</p>
+[![sample1](./medias/login_funnel_preview.gif)](https://github.com/yelkamel/flutter_login_funnel)
+
+All UX logic are tested with 100% of test coverage (run: flutter test).
 
 ## 😃 Import
 
 ```yaml
 dependencies:
-  flutter_login_funnel: ^0.0.2
+  flutter_login_funnel: ^0.0.8
   
 or
 
@@ -42,13 +42,9 @@ or
             return Text("votre email ?");
           case LoginStep.pwd:
             return Text("mot de passe ?");
-          case LoginStep.loading:
-            return Text("loading");
-          case LoginStep.init:
-            return Text("init");
         }
       },
-      registerOrConnectBuilder: (context, onConnect, onRegister) => Center(
+      registerOrConnectBuilder: (context, onRegister, onConnect) => Center(
         child: Column(
           children: [
             MaterialButton(
@@ -62,19 +58,19 @@ or
           ],
         ),
       ),
-      actionsBuilder: (context, step) => step == LoginStep.password ? 
+      actionsBuilder: (context, step, loginModel) => step == LoginStep.password ? 
             MaterialButton(
               onPressed: onConnect,
               child: Text("Reset Password request"),
             ) : const SizedBox();
-      onAuthSubmit: (createAccount, name, email, pwd) async {
-        if (!createAccount) {
-          final res = await Auth.signInWithEmailAndPassword(email, pwd);
+      onAuthSubmit: (loginModel) async {
+        if (!loginModel.createAccount) {
+          final res = await Auth.signInWithEmailAndPassword(loginModel.email, loginModel.password);
           if (!res) return false;
         }
-        final res = await Auth.registerWithEmailAndPassword(email, pwd);
+        final res = await Auth.registerWithEmailAndPassword(loginModel.email, loginModel.password);
         if (!res) return false;
-        Auth.updateDisplayName(name);
+        Auth.updateDisplayName(loginModel.name);
         onFinish.call();
         return true;
       },
@@ -100,7 +96,7 @@ backWidget | `Function` | <sub>This widget will be show as back button.</sub>
 
 ## 🙃 Model
 
-Login Model Data:
+LoginModel Data:
 
 Property |   Type     | Description
 -------- |------------| ---------------
@@ -141,13 +137,16 @@ password | `String` | <sub>The password getted from the funnel.</sub>
 
 ## 🥳 Idea Todo
 
-Feature | Difficulty | Description
+Feature | Difficulty | Check
 -------- |------------| ---------------
 Authentification button for Fb, Google, Apple, etc.. |   🔥    | <sub> ☑️</sub>
-Label input with microphone |  🔥🔥  | <sub> ☑️ </sub>
+Label input with microphone |  🔥🔥🔥  | <sub> ☑️ </sub>
 Background image animation transition |   🔥🔥     | <sub> ☑️ </sub>
 Onboarding process funnel classique | 🔥 | <sub> ☑️ </sub>
+Making other animation transition like SlideInOut | 🔥 | <sub> ☑️ </sub>
+Making other animation when user typing | 🔥 | <sub> ☑️ </sub>
 
+**Feel free to add you idea to the README.**
 
 ## License
 
