@@ -6,12 +6,17 @@ import '../main.dart';
 class LoginNextButton extends StatelessWidget {
   final LoginStep step;
   final void Function()? onNext;
-  final Widget? nextButton;
+  final Widget Function(
+    BuildContext,
+    LoginStep,
+    void Function()?,
+  )? nextBuilder;
+
   const LoginNextButton(
       {Key? key,
       required this.onNext,
       required this.step,
-      this.nextButton,
+      this.nextBuilder,
       state})
       : super(key: key);
 
@@ -27,20 +32,17 @@ class LoginNextButton extends StatelessWidget {
           onNext?.call();
         },
         builder: (BuildContext context, TapDebouncerFunc? onTap) {
-          return GestureDetector(
-            onTap: onTap,
-            child: nextButton ??
-                MaterialButton(
-                  onPressed: onTap,
-                  color: Theme.of(context).colorScheme.primary,
-                  child: Text(
-                    'Next',
-                    style: Theme.of(context).textTheme.button!.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                  ),
+          return nextBuilder?.call(context, step, onTap) ??
+              MaterialButton(
+                onPressed: onTap,
+                color: Theme.of(context).colorScheme.primary,
+                child: Text(
+                  'Next',
+                  style: Theme.of(context).textTheme.button!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                 ),
-          );
+              );
         },
       ),
     );

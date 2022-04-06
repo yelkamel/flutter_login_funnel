@@ -22,8 +22,9 @@ class LoginFunnel extends StatefulWidget {
 
   /// This widget will be show as back button.
   final Widget? backWidget;
-  // When the the user is logged in
-  // If you use Auth stream strategy this is no needed.
+
+  /// When the the user is logged in
+  /// If you use Auth stream strategy this is no needed.
   final void Function()? onFinish;
 
   /// this validation function is to validate the Name if it's return false it's will don't go next.
@@ -40,13 +41,20 @@ class LoginFunnel extends StatefulWidget {
   /// Tips: don't forget to popup a snackbar to explain why the provider didn't accepte.
   final Future<bool> Function(LoginModel)? onAuthSubmit;
 
-  // This will be show in the first step to as the use to connect or login
-  // use onConnect to call login and onRegister to register an user.
+  /// This will be show in the first step to as the use to connect or login
+  /// use onConnect to call login and onRegister to register an user.
   final Widget Function(
     BuildContext,
     void Function() onRegister,
     void Function() onConnect,
   )? registerOrConnectBuilder;
+
+  /// This is to have a custom next button for each step
+  final Widget Function(
+    BuildContext,
+    LoginStep,
+    void Function()? onNext,
+  )? nextBuilder;
 
   /// This will be show in the top for each step.
   final Widget Function(
@@ -74,6 +82,7 @@ class LoginFunnel extends StatefulWidget {
     this.registerOrConnectBuilder,
     this.titleBuilder,
     this.actionsBuilder,
+    this.nextBuilder,
   }) : super(key: key);
 
   @override
@@ -186,6 +195,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
           onNext: goNext,
           step: step,
           titleBuilder: widget.titleBuilder,
+          nextBuilder: widget.nextBuilder,
         );
     }
   }
@@ -194,10 +204,12 @@ class _LoginFunnelState extends State<LoginFunnel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: RawMaterialButton(
-          onPressed: goBack,
-          child: widget.backWidget ?? const Icon(Icons.arrow_back),
-        ),
+        leading: step != LoginStep.init || widget.onClose != null
+            ? RawMaterialButton(
+                onPressed: goBack,
+                child: widget.backWidget ?? const Icon(Icons.arrow_back),
+              )
+            : null,
         actions: [
           if (widget.actionsBuilder != null)
             widget.actionsBuilder!(context, step, loginModel)

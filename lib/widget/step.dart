@@ -16,6 +16,11 @@ class LoginStepWidget extends StatelessWidget {
     BuildContext,
     LoginStep,
   )? titleBuilder;
+  final Widget Function(
+    BuildContext,
+    LoginStep,
+    void Function()?,
+  )? nextBuilder;
 
   const LoginStepWidget({
     this.enableClose,
@@ -26,6 +31,7 @@ class LoginStepWidget extends StatelessWidget {
     this.createAccount = true,
     required this.onNext,
     this.titleBuilder,
+    this.nextBuilder,
   }) : super(key: key);
 
   double getStepValue() {
@@ -79,6 +85,7 @@ class LoginStepWidget extends StatelessWidget {
         LoginNextButton(
           onNext: onNext,
           step: step,
+          nextBuilder: nextBuilder,
         ),
       ],
     );
