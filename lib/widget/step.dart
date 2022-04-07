@@ -19,7 +19,7 @@ class LoginStepWidget extends StatelessWidget {
   final Widget Function(
     BuildContext,
     LoginStep,
-    void Function()?,
+    void Function(),
   )? nextBuilder;
 
   const LoginStepWidget({

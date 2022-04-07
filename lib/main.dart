@@ -53,7 +53,7 @@ class LoginFunnel extends StatefulWidget {
   final Widget Function(
     BuildContext,
     LoginStep,
-    void Function()? onNext,
+    void Function() onNext,
   )? nextBuilder;
 
   /// This will be show in the top for each step.
@@ -92,8 +92,6 @@ class LoginFunnel extends StatefulWidget {
 class _LoginFunnelState extends State<LoginFunnel> {
   TextEditingController inputController = TextEditingController();
   LoginStep step = LoginStep.init;
-
-  bool createAccount = true;
   LoginModel loginModel = LoginModel();
 
   void nameFinish() {
@@ -147,7 +145,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
     if (step == LoginStep.name) setState(() => step = LoginStep.init);
 
     if (step == LoginStep.email) {
-      step = createAccount ? LoginStep.name : LoginStep.init;
+      step = loginModel.createAccount ? LoginStep.name : LoginStep.init;
       inputController.text = loginModel.name;
     }
 
@@ -159,7 +157,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
   }
 
   void onSubmitAction(bool _) {
-    createAccount = _;
+    loginModel.createAccount = _;
     setState(() => step = _ ? LoginStep.name : LoginStep.email);
   }
 

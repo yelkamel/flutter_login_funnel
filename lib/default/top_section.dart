@@ -1,5 +1,6 @@
 part of flutter_login_funnel;
 
+/// This is really simple Widget utils to show the title of each step in english.
 class LoginFunnelTopSectionWidgetUtils extends StatelessWidget {
   final LoginStep step;
   final String emailLabel;

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:tap_debouncer/tap_debouncer.dart';
 
+import '../default/next_button.dart';
 import '../main.dart';
 
+/// This is the bottom area with the next button, we use a tab debouncer in there to provide us to make several api call at the same time.
 class LoginNextButton extends StatelessWidget {
   final LoginStep step;
   final void Function()? onNext;
   final Widget Function(
     BuildContext,
     LoginStep,
-    void Function()?,
+    void Function(),
   )? nextBuilder;
 
   const LoginNextButton(
@@ -32,17 +34,8 @@ class LoginNextButton extends StatelessWidget {
           onNext?.call();
         },
         builder: (BuildContext context, TapDebouncerFunc? onTap) {
-          return nextBuilder?.call(context, step, onTap) ??
-              MaterialButton(
-                onPressed: onTap,
-                color: Theme.of(context).colorScheme.primary,
-                child: Text(
-                  'Next',
-                  style: Theme.of(context).textTheme.button!.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                ),
-              );
+          return nextBuilder?.call(context, step, onTap!) ??
+              LoginFunnelNextButtonWidgetUtils(onPress: onTap!);
         },
       ),
     );

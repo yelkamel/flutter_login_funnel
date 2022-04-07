@@ -1,3 +1,7 @@
+## 0.0.8
+
+* Add NextBuilder to have a custom next button 
+
 ## 0.0.4
 
 * Better default widget + Add actions button builder

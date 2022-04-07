@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../main.dart';
 
+/// This is the only input button of the process that provide the avability to have only one keyboard open.
 class LoginInput extends StatefulWidget {
   final TextEditingController inputCtrl;
   final LoginStep step;

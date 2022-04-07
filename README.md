@@ -29,11 +29,16 @@ or
 ```Dart
  LoginFunnel(
       onFinish: () {},
+      onClose: () {},
       loadingWidget: const CircularProgressIndicator(),
       backWidget:  const Icon(Icons.arrow_back),
       onEmailValidation: (_) => _.length > 3,
       onPasswordValidation: (_) => _.length > 3,
       onNameValidation: (_) => _.length > 3,
+      nextBuilder: (context, step, goNext) => MaterialButton(
+        onPressed: goNext!,
+        child: Text("Suivant"),
+        ),
       titleBuilder: (context, step) {
         switch (step) {
           case LoginStep.name:
@@ -91,8 +96,10 @@ onNameValidation | `Function` | <sub>this validation function is to validate the
 titleBuilder | `Builder` | <sub>This will be show in the top for each step.</sub>
 registerOrConnectBuilder | `Builder` | <sub>This will be show in the first step to as the use to connect or login use onConnect to call login and onRegister to register an user.</sub>
 actionsBuilder | `Builder` | <sub>This is to build actions button for by step.</sub>
+nextBuilder | `Builder` | <sub>This is to build the next button in the bottom of each step.</sub>
 loadingWidget | `Widget` | <sub>This widget will be show when it's loading state.</sub>
-backWidget | `Function` | <sub>This widget will be show as back button.</sub>
+backWidget | `Widget` | <sub>This widget will be show as back button.</sub>
+
 
 ## 🙃 Model
 

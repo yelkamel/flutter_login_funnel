@@ -1,5 +1,7 @@
 part of flutter_login_funnel;
 
+/// This is really simple Widget utils to show if the user want to connect or register
+/// to use if you don't have time to work on UI UX of the login process.
 class LoginFunnelRegisterOrConnectWidgetUtils extends StatelessWidget {
   final void Function() onRegister;
   final void Function() onConnect;
