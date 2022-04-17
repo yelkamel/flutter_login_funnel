@@ -55,7 +55,7 @@ class LoginFunnelRegisterOrConnectWidgetUtils extends StatelessWidget {
                     connectButtonLabel,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontWeight: FontWeight.w700,
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                   ),
                 )

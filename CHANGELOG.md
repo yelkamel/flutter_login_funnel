@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Add Progress Bar default and builder
+
 ## 0.0.8
 
 * Add NextBuilder to have a custom next button 

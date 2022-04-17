@@ -2,6 +2,7 @@ library flutter_login_funnel;
 
 import 'package:flutter/material.dart';
 
+import 'default/progress_bar.dart';
 import 'layou_package/fade_intout_transitionner.dart';
 import 'model/login_model.dart';
 import 'widget/step.dart';
@@ -62,6 +63,12 @@ class LoginFunnel extends StatefulWidget {
     LoginStep,
   )? titleBuilder;
 
+  /// This will show the progress of the funnel in the top for the user to know what's going on.
+  final Widget Function(
+    BuildContext,
+    LoginStep,
+  )? progressBarBuilder;
+
   /// This is to build actions button for by step.
   final Widget Function(
     BuildContext,
@@ -83,6 +90,7 @@ class LoginFunnel extends StatefulWidget {
     this.titleBuilder,
     this.actionsBuilder,
     this.nextBuilder,
+    this.progressBarBuilder,
   }) : super(key: key);
 
   @override
@@ -201,7 +209,10 @@ class _LoginFunnelState extends State<LoginFunnel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         leading: step != LoginStep.init || widget.onClose != null
             ? RawMaterialButton(
                 onPressed: goBack,
@@ -213,7 +224,13 @@ class _LoginFunnelState extends State<LoginFunnel> {
             widget.actionsBuilder!(context, step, loginModel)
         ],
       ),
-      body: FadeInOutTransitionner(child: buildContent()),
+      body: Column(
+        children: [
+          widget.progressBarBuilder?.call(context, step) ??
+              LoginFunnelProgressBarWidgetUtils(step: step),
+          Expanded(child: FadeInOutTransitionner(child: buildContent())),
+        ],
+      ),
     );
   }
 }
