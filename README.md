@@ -93,12 +93,13 @@ onLogin |   `AuthCallback`     | <sub>Called when the user hit the submit button
 onEmailValidation | `Function` | <sub>this validation function is to validate the email if it's return false it's will don't go next.</sub>
 onPasswordValidation |   `Function`     | <sub>this validation function is to validate the password if it's return false it's will don't go next.</sub>
 onNameValidation | `Function` | <sub>this validation function is to validate the name if it's return false it's will don't go next.</sub>
+loadingWidget | `Widget` | <sub>This widget will be show when it's loading state.</sub>
+backWidget | `Widget` | <sub>This widget will be show as back button.</sub>
 titleBuilder | `Builder` | <sub>This will be show in the top for each step.</sub>
 registerOrConnectBuilder | `Builder` | <sub>This will be show in the first step to as the use to connect or login use onConnect to call login and onRegister to register an user.</sub>
 actionsBuilder | `Builder` | <sub>This is to build actions button for by step.</sub>
 nextBuilder | `Builder` | <sub>This is to build the next button in the bottom of each step.</sub>
-loadingWidget | `Widget` | <sub>This widget will be show when it's loading state.</sub>
-backWidget | `Widget` | <sub>This widget will be show as back button.</sub>
+progressBarBuilder | `Builder` | <sub>This will show the progress of the funnel in the top for the user to know what's going on.</sub>
 
 
 ## 🙃 Model
@@ -139,6 +140,18 @@ password | `String` | <sub>The password getted from the funnel.</sub>
             registerButtonLabel: "Inscription",
             alreadyAccountLabel: "Vous avez déjà un compte ?",
             connectButtonLabel: "Connexion",
+          )
+```
+
+ LoginFunnelTopSectionWidgetUtils()
+
+This is a simple progress bar widget that can be used in the login funnel.
+
+ ```Dart
+ LoginFunnelProgressBarWidgetUtils(
+            step: step,
+            progressColor: Colors.red,
+            backgroundProgressColor:  Colors.blue,
           )
 ```
 

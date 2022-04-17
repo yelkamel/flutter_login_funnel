@@ -2,7 +2,6 @@ library flutter_login_funnel;
 
 import 'package:flutter/material.dart';
 
-import 'default/progress_bar.dart';
 import 'layou_package/fade_intout_transitionner.dart';
 import 'model/login_model.dart';
 import 'widget/step.dart';
@@ -13,6 +12,8 @@ part 'login_enum.dart';
 
 part 'default/register_or_connect.dart';
 part 'default/top_section.dart';
+part 'default/progress_bar.dart';
+part 'default/next_button.dart';
 
 class LoginFunnel extends StatefulWidget {
   /// This function is call when the user try to back at the first step.

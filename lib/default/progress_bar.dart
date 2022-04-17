@@ -1,11 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_login_funnel/main.dart';
+part of flutter_login_funnel;
 
 /// This is a simple progress bar widget that can be used in the login funnel by default.
 class LoginFunnelProgressBarWidgetUtils extends StatelessWidget {
   final LoginStep step;
+  final Color? progressColor;
+  final Color? backgroundProgressColor;
 
-  const LoginFunnelProgressBarWidgetUtils({Key? key, required this.step})
+  const LoginFunnelProgressBarWidgetUtils(
+      {Key? key,
+      required this.step,
+      this.progressColor,
+      this.backgroundProgressColor})
       : super(key: key);
 
   @override
@@ -28,7 +33,8 @@ class LoginFunnelProgressBarWidgetUtils extends StatelessWidget {
           height: 7,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Theme.of(context).colorScheme.onBackground,
+            color: backgroundProgressColor ??
+                Theme.of(context).colorScheme.onBackground,
           ),
         ),
         AnimatedContainer(
@@ -37,7 +43,7 @@ class LoginFunnelProgressBarWidgetUtils extends StatelessWidget {
           height: 7,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: Theme.of(context).colorScheme.primary,
+            color: progressColor ?? Theme.of(context).colorScheme.primary,
           ),
         ),
       ],

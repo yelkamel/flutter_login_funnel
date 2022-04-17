@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tap_debouncer/tap_debouncer.dart';
 
-import '../default/next_button.dart';
 import '../main.dart';
 
 /// This is the bottom area with the next button, we use a tab debouncer in there to provide us to make several api call at the same time.
