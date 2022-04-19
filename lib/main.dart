@@ -149,20 +149,27 @@ class _LoginFunnelState extends State<LoginFunnel> {
 
   void goBack() {
     final close = step == LoginStep.init && widget.onClose != null;
-    if (close) widget.onClose?.call();
+    if (close) {
+      widget.onClose?.call();
+      return;
+    }
 
-    if (step == LoginStep.name) setState(() => step = LoginStep.init);
+    LoginStep? targetStep;
+
+    if (step == LoginStep.name) targetStep = LoginStep.init;
 
     if (step == LoginStep.email) {
-      step = loginModel.createAccount ? LoginStep.name : LoginStep.init;
       inputController.text = loginModel.name;
+      targetStep = loginModel.createAccount ? LoginStep.name : LoginStep.init;
     }
 
     if (step == LoginStep.pwd) {
-      setState(() => step = LoginStep.email);
       inputController.text = loginModel.email;
+      targetStep = LoginStep.email;
     }
-    if (step == LoginStep.loading) setState(() => step = LoginStep.pwd);
+    if (step == LoginStep.loading) targetStep = LoginStep.pwd;
+
+    if (targetStep != null) setState(() => step = targetStep!);
   }
 
   void onSubmitAction(bool _) {

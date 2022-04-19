@@ -63,6 +63,7 @@ class _LoginInputState extends State<LoginInput> {
                 fontWeight: FontWeight.w600,
                 fontSize: 32 * fontSizedRatio,
               ),
+          enableSuggestions: widget.step != LoginStep.pwd,
           obscureText: widget.step == LoginStep.pwd,
           onEditingComplete: widget.onNext,
           maxLength: getMaxLenght(widget.step),
