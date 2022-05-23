@@ -75,7 +75,7 @@ class LoginStepWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 75,
+          height: 100,
           child: LoginInput(
             inputCtrl: inputCtrl,
             step: step,
