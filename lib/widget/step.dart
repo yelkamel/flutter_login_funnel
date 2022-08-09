@@ -59,7 +59,6 @@ class LoginStepWidget extends StatelessWidget {
       key: ValueKey('LoginTop-$step'),
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        // ProgressBar(value: getStepValue(state)),
         GestureDetector(
           onLongPress: randomizeInputs,
           child: SizedBox(

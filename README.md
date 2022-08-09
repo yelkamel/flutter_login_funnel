@@ -28,7 +28,7 @@ or
 
 ```Dart
  LoginFunnel(
-      onFinish: () {},
+      onFinish: (loginModel) {},
       onClose: () {},
       loadingWidget: const CircularProgressIndicator(),
       backWidget:  const Icon(Icons.arrow_back),
@@ -75,8 +75,6 @@ or
         }
         final res = await Auth.registerWithEmailAndPassword(loginModel.email, loginModel.password);
         if (!res) return false;
-        Auth.updateDisplayName(loginModel.name);
-        onFinish.call();
         return true;
       },
     );
@@ -87,7 +85,7 @@ or
 
 Property |   Type     | Description
 -------- |------------| ---------------
-onFinish |   `AuthCallback`     | <sub> When the the user is logged in If you use Auth stream strategy this is no needed.</sub>
+onFinish |   `AuthCallback`     | <sub> When the the user is logged in If you use Auth stream strategy this is no needed. And It give the user login information (name, email, password, creationOrNot).</sub>
 onAuthSubmit | `AuthCallback` | <sub>Where you have to call your Authentification service provider with the email/password (and name if it's a registration) if the provider doesn't accept you can return false to stop the tunnel otherwise true Tips: don't forget to popup a snackbar to explain why the provider didn't accepte.</sub>
 onLogin |   `AuthCallback`     | <sub>Called when the user hit the submit button when in login mode.</sub>
 onEmailValidation | `Function` | <sub>this validation function is to validate the email if it's return false it's will don't go next.</sub>

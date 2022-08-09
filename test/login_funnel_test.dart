@@ -300,7 +300,7 @@ void testAuthCase() {
           onAuthSubmit: (loginModel) async {
             return true;
           },
-          onFinish: () {
+          onFinish: (_) {
             isFinish = true;
           },
           loadingWidget: const SizedBox(),

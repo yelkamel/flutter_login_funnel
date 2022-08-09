@@ -27,7 +27,7 @@ class LoginFunnel extends StatefulWidget {
 
   /// When the the user is logged in
   /// If you use Auth stream strategy this is no needed.
-  final void Function()? onFinish;
+  final void Function(LoginModel)? onFinish;
 
   /// this validation function is to validate the Name if it's return false it's will don't go next.
   final bool Function(String)? onNameValidation;
@@ -138,7 +138,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
       return;
     }
 
-    widget.onFinish?.call();
+    widget.onFinish?.call(loginModel);
   }
 
   void goNext() {

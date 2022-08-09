@@ -6,12 +6,12 @@ class LoginFunnelProgressBarWidgetUtils extends StatelessWidget {
   final Color? progressColor;
   final Color? backgroundProgressColor;
 
-  const LoginFunnelProgressBarWidgetUtils(
-      {Key? key,
-      required this.step,
-      this.progressColor,
-      this.backgroundProgressColor})
-      : super(key: key);
+  const LoginFunnelProgressBarWidgetUtils({
+    Key? key,
+    required this.step,
+    this.progressColor,
+    this.backgroundProgressColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class LoginFunnelProgressBarWidgetUtils extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: backgroundProgressColor ??
-                Theme.of(context).colorScheme.onBackground,
+                Theme.of(context).colorScheme.primary.withOpacity(0.3),
           ),
         ),
         AnimatedContainer(
