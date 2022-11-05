@@ -42,42 +42,51 @@ class _LoginInputState extends State<LoginInput> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        TextField(
-          key: ValueKey('LoginInputText-${widget.step}'),
-          autofocus: true,
-          textAlign: TextAlign.center,
-          controller: widget.inputCtrl,
-          textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            suffixIcon: widget.step == LoginStep.pwd
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        hide = !hide;
-                      });
-                    },
-                    icon: Icon(hide ? Icons.remove_red_eye : Icons.password),
-                  )
-                : null, //icon at tail of input
-            counterText: '',
-            hintText: '',
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 32,
+        Container(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: TextField(
+            key: ValueKey('LoginInputText-${widget.step}'),
+            autofocus: true,
+            textAlign: TextAlign.center,
+            controller: widget.inputCtrl,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              suffixIcon: widget.step == LoginStep.pwd
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            hide = !hide;
+                          });
+                        },
+                        icon: Icon(
+                          hide ? Icons.remove_red_eye : Icons.password,
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                      ),
+                    )
+                  : null, //icon at tail of input
+              counterText: '',
+              hintText: '',
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 32,
+                  ),
+            ),
+            onChanged: (value) => setState(() => text = value),
+            autocorrect: false,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 32 * fontSizedRatio,
                 ),
+            enableSuggestions: widget.step != LoginStep.pwd,
+            obscureText: widget.step == LoginStep.pwd && hide,
+            onEditingComplete: widget.onNext,
+            maxLength: getMaxLenght(widget.step),
           ),
-          onChanged: (value) => setState(() => text = value),
-          autocorrect: false,
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: 32 * fontSizedRatio,
-              ),
-          enableSuggestions: widget.step != LoginStep.pwd,
-          obscureText: widget.step == LoginStep.pwd && hide,
-          onEditingComplete: widget.onNext,
-          maxLength: getMaxLenght(widget.step),
         ),
         AnimatedContainer(
           height: 1,
