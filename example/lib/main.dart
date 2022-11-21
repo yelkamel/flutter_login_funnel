@@ -42,12 +42,12 @@ class LoginScreen extends StatelessWidget {
       onEmailValidation: (_) => _.contains('@'),
       onPasswordValidation: (_) => _.length > 3,
       onNameValidation: (_) => _.length > 3,
-      onAuthSubmit: (createAccount, name, email, pwd) async {
-        if (!createAccount) {
-          final res = signInWithEmailAndPassword(email, pwd);
+      onAuthSubmit: (_) async {
+        if (!_.createAccount) {
+          final res = signInWithEmailAndPassword(_.email, _.password);
           if (!res) return false;
         }
-        final res = registerWithEmailAndPassword(name, email, pwd);
+        final res = registerWithEmailAndPassword(_.name, _.email, _.password);
         if (!res) return false;
         return true;
       },

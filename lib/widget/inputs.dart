@@ -51,6 +51,9 @@ class _LoginInputState extends State<LoginInput> {
             controller: widget.inputCtrl,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
+              prefix: widget.step == LoginStep.pwd
+                  ? const SizedBox(width: 60)
+                  : null,
               suffixIcon: widget.step == LoginStep.pwd
                   ? Padding(
                       padding: const EdgeInsets.only(right: 20.0),
@@ -66,7 +69,7 @@ class _LoginInputState extends State<LoginInput> {
                         ),
                       ),
                     )
-                  : null, //icon at tail of input
+                  : null,
               counterText: '',
               hintText: '',
               border: InputBorder.none,
