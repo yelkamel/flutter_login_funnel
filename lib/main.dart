@@ -114,7 +114,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
   }
 
   void emailFinish() {
-    final email = inputController.text.trim();
+    final email = inputController.text.trim().toLowerCase();
     final res = widget.onEmailValidation?.call(email) ?? true;
     if (!res) return;
     loginModel.email = email;
