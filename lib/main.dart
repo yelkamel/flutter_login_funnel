@@ -19,6 +19,8 @@ class LoginFunnel extends StatefulWidget {
   /// This function is call when the user try to back at the first step.
   final void Function()? onClose;
 
+  final LoginStep? initialStep;
+
   /// This widget will be show when it's loading state.
   final Widget? loadingWidget;
 
@@ -92,6 +94,7 @@ class LoginFunnel extends StatefulWidget {
     this.actionsBuilder,
     this.nextBuilder,
     this.progressBarBuilder,
+    this.initialStep,
   }) : super(key: key);
 
   @override
@@ -100,8 +103,16 @@ class LoginFunnel extends StatefulWidget {
 
 class _LoginFunnelState extends State<LoginFunnel> {
   TextEditingController inputController = TextEditingController();
-  LoginStep step = LoginStep.init;
+  late LoginStep step;
   LoginModel loginModel = LoginModel();
+
+  LoginStep get initialStep => widget.initialStep ?? LoginStep.init;
+
+  @override
+  void initState() {
+    super.initState();
+    step = initialStep;
+  }
 
   void nameFinish() {
     final name = inputController.text.trim().capitalizeFirst;
@@ -148,7 +159,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
   }
 
   void goBack() {
-    final close = step == LoginStep.init && widget.onClose != null;
+    final close = step == initialStep && widget.onClose != null;
     if (close) {
       widget.onClose?.call();
       return;
@@ -203,8 +214,6 @@ class _LoginFunnelState extends State<LoginFunnel> {
             );
       default:
         return LoginStepWidget(
-          enableClose: widget.onClose != null,
-          goBack: goBack,
           inputCtrl: inputController,
           onNext: goNext,
           step: step,
@@ -221,12 +230,10 @@ class _LoginFunnelState extends State<LoginFunnel> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: step != LoginStep.init || widget.onClose != null
-            ? RawMaterialButton(
-                onPressed: goBack,
-                child: widget.backWidget ?? const Icon(Icons.arrow_back),
-              )
-            : null,
+        leading: RawMaterialButton(
+          onPressed: goBack,
+          child: widget.backWidget ?? const Icon(Icons.arrow_back),
+        ),
         actions: [
           if (widget.actionsBuilder != null)
             widget.actionsBuilder!(context, step, loginModel)

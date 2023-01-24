@@ -6,10 +6,8 @@ import 'inputs.dart';
 import 'next_button.dart';
 
 class LoginStepWidget extends StatelessWidget {
-  final bool? enableClose;
   final TextEditingController inputCtrl;
   final LoginStep step;
-  final void Function() goBack;
   final bool createAccount;
   final void Function()? onNext;
   final Widget Function(
@@ -23,11 +21,9 @@ class LoginStepWidget extends StatelessWidget {
   )? nextBuilder;
 
   const LoginStepWidget({
-    this.enableClose,
     Key? key,
     required this.inputCtrl,
     required this.step,
-    required this.goBack,
     this.createAccount = true,
     required this.onNext,
     this.titleBuilder,
