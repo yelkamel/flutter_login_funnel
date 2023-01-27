@@ -27,6 +27,9 @@ class LoginFunnel extends StatefulWidget {
   /// This widget will be show as back button.
   final Widget? backWidget;
 
+  /// This widget will be as aggreement when user signUp
+  final Widget? agreementWidget;
+
   /// When the the user is logged in
   /// If you use Auth stream strategy this is no needed.
   final void Function(LoginModel)? onFinish;
@@ -95,6 +98,7 @@ class LoginFunnel extends StatefulWidget {
     this.nextBuilder,
     this.progressBarBuilder,
     this.initialStep,
+    this.agreementWidget,
   }) : super(key: key);
 
   @override
@@ -219,6 +223,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
           step: step,
           titleBuilder: widget.titleBuilder,
           nextBuilder: widget.nextBuilder,
+          agreementWidget: widget.agreementWidget,
         );
     }
   }
@@ -227,13 +232,16 @@ class _LoginFunnelState extends State<LoginFunnel> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: RawMaterialButton(
-          onPressed: goBack,
-          child: widget.backWidget ?? const Icon(Icons.arrow_back),
-        ),
+        leading: step == initialStep && widget.onClose == null
+            ? null
+            : RawMaterialButton(
+                onPressed: goBack,
+                child: widget.backWidget ?? const Icon(Icons.arrow_back),
+              ),
         actions: [
           if (widget.actionsBuilder != null)
             widget.actionsBuilder!(context, step, loginModel)

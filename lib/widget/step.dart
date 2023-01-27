@@ -10,6 +10,7 @@ class LoginStepWidget extends StatelessWidget {
   final LoginStep step;
   final bool createAccount;
   final void Function()? onNext;
+  final Widget? agreementWidget;
   final Widget Function(
     BuildContext,
     LoginStep,
@@ -28,6 +29,7 @@ class LoginStepWidget extends StatelessWidget {
     required this.onNext,
     this.titleBuilder,
     this.nextBuilder,
+    this.agreementWidget,
   }) : super(key: key);
 
   double getStepValue() {
@@ -51,38 +53,45 @@ class LoginStepWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      key: ValueKey('LoginTop-$step'),
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        GestureDetector(
-          onLongPress: randomizeInputs,
-          child: SizedBox(
-            height: 100,
-            child: FadeInOutTransitionner(
-              child: Padding(
-                key: Key(step.toString()),
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: titleBuilder?.call(context, step) ??
-                    LoginFunnelTopSectionWidgetUtils(step: step),
+    return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+      child: Column(
+        key: ValueKey('LoginTop-$step'),
+        children: [
+          GestureDetector(
+            onLongPress: randomizeInputs,
+            child: SizedBox(
+              height: 100,
+              child: FadeInOutTransitionner(
+                child: Padding(
+                  key: Key(step.toString()),
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: titleBuilder?.call(context, step) ??
+                      LoginFunnelTopSectionWidgetUtils(step: step),
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 100,
-          child: LoginInput(
-            inputCtrl: inputCtrl,
-            step: step,
-            onNext: onNext,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: SizedBox(
+              height: 80,
+              child: LoginInput(
+                inputCtrl: inputCtrl,
+                step: step,
+                onNext: onNext,
+              ),
+            ),
           ),
-        ),
-        LoginNextButton(
-          onNext: onNext,
-          step: step,
-          nextBuilder: nextBuilder,
-        ),
-      ],
+          if (agreementWidget != null && step == LoginStep.pwd)
+            agreementWidget!,
+          LoginNextButton(
+            onNext: onNext,
+            step: step,
+            nextBuilder: nextBuilder,
+          ),
+        ],
+      ),
     );
   }
 }
