@@ -54,41 +54,43 @@ class LoginStepWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
       child: Column(
         key: ValueKey('LoginTop-$step'),
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          GestureDetector(
-            onLongPress: randomizeInputs,
-            child: SizedBox(
-              height: 100,
-              child: FadeInOutTransitionner(
-                child: Padding(
-                  key: Key(step.toString()),
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: titleBuilder?.call(context, step) ??
-                      LoginFunnelTopSectionWidgetUtils(step: step),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.25,
+            child: GestureDetector(
+              onLongPress: randomizeInputs,
+              child: Center(
+                child: FadeInOutTransitionner(
+                  child: Padding(
+                    key: Key(step.toString()),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: titleBuilder?.call(context, step) ??
+                        LoginFunnelTopSectionWidgetUtils(step: step),
+                  ),
                 ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: SizedBox(
-              height: 80,
-              child: LoginInput(
-                inputCtrl: inputCtrl,
-                step: step,
-                onNext: onNext,
-              ),
+          SizedBox(
+            height: 75,
+            child: LoginInput(
+              inputCtrl: inputCtrl,
+              step: step,
+              onNext: onNext,
             ),
           ),
           if (agreementWidget != null && step == LoginStep.pwd)
             agreementWidget!,
-          LoginNextButton(
-            onNext: onNext,
-            step: step,
-            nextBuilder: nextBuilder,
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: LoginNextButton(
+              onNext: onNext,
+              step: step,
+              nextBuilder: nextBuilder,
+            ),
           ),
         ],
       ),
