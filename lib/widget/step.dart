@@ -53,47 +53,44 @@ class LoginStepWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        key: ValueKey('LoginTop-$step'),
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.25,
-            child: GestureDetector(
-              onLongPress: randomizeInputs,
-              child: Center(
-                child: FadeInOutTransitionner(
-                  child: Padding(
-                    key: Key(step.toString()),
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: titleBuilder?.call(context, step) ??
-                        LoginFunnelTopSectionWidgetUtils(step: step),
-                  ),
+    return Column(
+      key: ValueKey('LoginTop-$step'),
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.25,
+          child: GestureDetector(
+            onLongPress: randomizeInputs,
+            child: Center(
+              child: FadeInOutTransitionner(
+                child: Padding(
+                  key: Key(step.toString()),
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: titleBuilder?.call(context, step) ??
+                      LoginFunnelTopSectionWidgetUtils(step: step),
                 ),
               ),
             ),
           ),
-          SizedBox(
-            height: 75,
-            child: LoginInput(
-              inputCtrl: inputCtrl,
-              step: step,
-              onNext: onNext,
-            ),
+        ),
+        SizedBox(
+          height: 100,
+          child: LoginInput(
+            inputCtrl: inputCtrl,
+            step: step,
+            onNext: onNext,
           ),
-          if (agreementWidget != null && step == LoginStep.pwd)
-            agreementWidget!,
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: LoginNextButton(
-              onNext: onNext,
-              step: step,
-              nextBuilder: nextBuilder,
-            ),
+        ),
+        if (agreementWidget != null && step == LoginStep.pwd) agreementWidget!,
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: LoginNextButton(
+            onNext: onNext,
+            step: step,
+            nextBuilder: nextBuilder,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

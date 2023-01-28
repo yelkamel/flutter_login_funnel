@@ -47,6 +47,11 @@ class _LoginInputState extends State<LoginInput> {
           child: TextField(
             key: ValueKey('LoginInputText-${widget.step}'),
             autofocus: true,
+            keyboardType: widget.step == LoginStep.email
+                ? TextInputType.emailAddress
+                : widget.step == LoginStep.name
+                    ? TextInputType.name
+                    : TextInputType.text,
             textAlign: TextAlign.center,
             controller: widget.inputCtrl,
             textInputAction: TextInputAction.next,
