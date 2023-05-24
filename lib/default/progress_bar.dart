@@ -19,7 +19,8 @@ class LoginFunnelProgressBarWidgetUtils extends StatelessWidget {
 
     double getStepValue(LoginStep step) {
       if (step == LoginStep.init) return 0;
-      if (step == LoginStep.name) return 0.3;
+      if (step == LoginStep.firstname) return 0.2;
+      if (step == LoginStep.name) return 0.4;
       if (step == LoginStep.email) return 0.6;
       if (step == LoginStep.pwd) return 0.9;
 

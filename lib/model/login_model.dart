@@ -3,6 +3,7 @@ class LoginModel {
   String name = '';
   String email = '';
   String password = '';
+  String firstname = '';
   bool createAccount = false;
 
   @override

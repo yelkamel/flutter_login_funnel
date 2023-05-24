@@ -34,14 +34,8 @@ class LoginFunnel extends StatefulWidget {
   /// If you use Auth stream strategy this is no needed.
   final void Function(LoginModel)? onFinish;
 
-  /// this validation function is to validate the Name if it's return false it's will don't go next.
-  final bool Function(String)? onNameValidation;
-
-  /// this validation function is to validate the Email if it's return false it's will don't go next.
-  final bool Function(String)? onEmailValidation;
-
-  /// this validation function is to validate the Password if it's return false it's will don't go next.
-  final bool Function(String)? onPasswordValidation;
+  /// this validation function is to validate the steps if it's return false it's will don't go next.
+  final bool Function(LoginStep, String)? onValidation;
 
   /// Where you have to call your Authentification service provider with the email/password (and name if it's a registration)
   /// if the provider doesn't accept you can return false to stop the tunnel otherwise true
@@ -82,14 +76,15 @@ class LoginFunnel extends StatefulWidget {
     LoginModel,
   )? actionsBuilder;
 
+  ///
+  final List<LoginStep> steps;
+
   const LoginFunnel({
     Key? key,
     this.loadingWidget,
     this.backWidget,
     this.onClose,
-    this.onNameValidation,
-    this.onEmailValidation,
-    this.onPasswordValidation,
+    this.onValidation,
     required this.onAuthSubmit,
     this.onFinish,
     this.registerOrConnectBuilder,
@@ -99,6 +94,12 @@ class LoginFunnel extends StatefulWidget {
     this.progressBarBuilder,
     this.initialStep,
     this.agreementWidget,
+    this.steps = const [
+      LoginStep.init,
+      LoginStep.name,
+      LoginStep.email,
+      LoginStep.pwd
+    ],
   }) : super(key: key);
 
   @override
@@ -107,49 +108,51 @@ class LoginFunnel extends StatefulWidget {
 
 class _LoginFunnelState extends State<LoginFunnel> {
   TextEditingController inputController = TextEditingController();
-  late LoginStep step;
   LoginModel loginModel = LoginModel();
-
-  LoginStep get initialStep => widget.initialStep ?? LoginStep.init;
-
-  @override
-  void initState() {
-    super.initState();
-    step = initialStep;
-  }
+  int indexStep = 0;
 
   void nameFinish() {
     final name = inputController.text.trim().capitalizeFirst;
-    final res = widget.onNameValidation?.call(name) ?? true;
+    final res = widget.onValidation?.call(LoginStep.name, name) ?? true;
     if (!res) return;
     loginModel.name = name;
-
     inputController.text = "";
-    setState(() => step = LoginStep.email);
+    setState(() => indexStep++);
+  }
+
+  void firstNameFinish() {
+    final firstname = inputController.text.trim().capitalizeFirst;
+    final res =
+        widget.onValidation?.call(LoginStep.firstname, firstname) ?? true;
+    if (!res) return;
+    loginModel.firstname = firstname;
+    inputController.text = "";
+    setState(() => indexStep++);
   }
 
   void emailFinish() {
     final email = inputController.text.trim().toLowerCase();
-    final res = widget.onEmailValidation?.call(email) ?? true;
+    final res = widget.onValidation?.call(LoginStep.email, email) ?? true;
     if (!res) return;
     loginModel.email = email;
-
-    setState(() => step = LoginStep.pwd);
     inputController.text = "";
+    setState(() => indexStep++);
   }
 
   void pwdFinish() async {
     final password = inputController.text.trim();
-    final res = widget.onPasswordValidation?.call(password) ?? true;
+    final res = widget.onValidation?.call(LoginStep.pwd, password) ?? true;
     if (!res) return;
     loginModel.password = password;
 
-    setState(() => step = LoginStep.loading);
+    final indexLoadingStep = widget.steps.indexOf(LoginStep.email);
+    setState(() => indexStep = indexLoadingStep);
     final authRes = await widget.onAuthSubmit?.call(loginModel) ?? false;
 
     if (!authRes) {
-      setState(() => step = LoginStep.pwd);
       inputController.text = "";
+      final indexEmailStep = widget.steps.indexOf(LoginStep.email);
+      setState(() => indexStep = indexEmailStep);
       return;
     }
 
@@ -157,52 +160,51 @@ class _LoginFunnelState extends State<LoginFunnel> {
   }
 
   void goNext() {
+    final step = widget.steps[indexStep];
     if (step == LoginStep.pwd) pwdFinish();
+    if (step == LoginStep.firstname) firstNameFinish();
     if (step == LoginStep.email) emailFinish();
     if (step == LoginStep.name) nameFinish();
   }
 
   void goBack() {
-    final close = step == initialStep && widget.onClose != null;
+    final step = widget.steps[indexStep];
+
+    final close = indexStep == 0 && widget.onClose != null;
     if (close) {
       widget.onClose?.call();
       return;
     }
 
-    LoginStep? targetStep;
-
-    if (step == LoginStep.name) targetStep = LoginStep.init;
-
     if (step == LoginStep.email) {
+      if (!loginModel.createAccount) {
+        setState(() => indexStep = 0);
+        return;
+      }
       inputController.text = loginModel.name;
-      targetStep = loginModel.createAccount ? LoginStep.name : LoginStep.init;
     }
 
     if (step == LoginStep.pwd) {
       inputController.text = loginModel.email;
-      targetStep = LoginStep.email;
     }
-    if (step == LoginStep.loading) targetStep = LoginStep.pwd;
-
-    if (targetStep != null) setState(() => step = targetStep!);
-  }
-
-  void onSubmitAction(bool _) {
-    loginModel.createAccount = _;
-    setState(() => step = _ ? LoginStep.name : LoginStep.email);
+    setState(() => indexStep--);
   }
 
   void onRegister() {
-    setState(() => step = LoginStep.name);
+    inputController.text = "";
     loginModel.createAccount = true;
+    setState(() => indexStep++);
   }
 
   void onConnect() {
-    setState(() => step = LoginStep.email);
+    inputController.text = "";
     loginModel.createAccount = false;
+    final indexEmailStep = widget.steps.indexOf(LoginStep.email);
+    setState(() => indexStep = indexEmailStep);
   }
 
   Widget buildContent() {
+    final step = widget.steps[indexStep];
     switch (step) {
       case LoginStep.loading:
         return Center(
@@ -230,13 +232,15 @@ class _LoginFunnelState extends State<LoginFunnel> {
 
   @override
   Widget build(BuildContext context) {
+    final step = widget.steps[indexStep];
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: step == initialStep && widget.onClose == null
+        leading: indexStep == 0 && widget.onClose == null
             ? null
             : RawMaterialButton(
                 onPressed: goBack,

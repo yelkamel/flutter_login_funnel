@@ -88,9 +88,7 @@ Property |   Type     | Description
 onFinish |   `AuthCallback`     | <sub> When the the user is logged in If you use Auth stream strategy this is no needed. And It give the user login information (name, email, password, creationOrNot).</sub>
 onAuthSubmit | `AuthCallback` | <sub>Where you have to call your Authentification service provider with the email/password (and name if it's a registration) if the provider doesn't accept you can return false to stop the tunnel otherwise true Tips: don't forget to popup a snackbar to explain why the provider didn't accepte.</sub>
 onLogin |   `AuthCallback`     | <sub>Called when the user hit the submit button when in login mode.</sub>
-onEmailValidation | `Function` | <sub>this validation function is to validate the email if it's return false it's will don't go next.</sub>
-onPasswordValidation |   `Function`     | <sub>this validation function is to validate the password if it's return false it's will don't go next.</sub>
-onNameValidation | `Function` | <sub>this validation function is to validate the name if it's return false it's will don't go next.</sub>
+onValidation | `Function` | <sub>this validation function is to validate the steps if it's return false it's will don't go next.</sub>
 loadingWidget | `Widget` | <sub>This widget will be show when it's loading state.</sub>
 backWidget | `Widget` | <sub>This widget will be show as back button.</sub>
 titleBuilder | `Builder` | <sub>This will be show in the top for each step.</sub>
@@ -98,6 +96,8 @@ registerOrConnectBuilder | `Builder` | <sub>This will be show in the first step 
 actionsBuilder | `Builder` | <sub>This is to build actions button for by step.</sub>
 nextBuilder | `Builder` | <sub>This is to build the next button in the bottom of each step.</sub>
 progressBarBuilder | `Builder` | <sub>This will show the progress of the funnel in the top for the user to know what's going on.</sub>
+steps | `Builder` | <sub>This is the list of steps for the funnel to build.</sub>
+
 
 
 ## 🙃 Model

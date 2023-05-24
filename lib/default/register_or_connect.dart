@@ -32,7 +32,7 @@ class LoginFunnelRegisterOrConnectWidgetUtils extends StatelessWidget {
               child: Text(
                 registerButtonLabel,
                 key: const ValueKey('LoginRegisterOrConnectDefault-register'),
-                style: Theme.of(context).textTheme.button!.copyWith(
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),
               ),
@@ -44,7 +44,7 @@ class LoginFunnelRegisterOrConnectWidgetUtils extends StatelessWidget {
               children: [
                 Text(
                   alreadyAccountLabel,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
@@ -53,7 +53,7 @@ class LoginFunnelRegisterOrConnectWidgetUtils extends StatelessWidget {
                   key: const ValueKey('LoginRegisterOrConnectDefault-signin'),
                   child: Text(
                     connectButtonLabel,
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.w700,
                           color: Theme.of(context).colorScheme.primary,
                         ),

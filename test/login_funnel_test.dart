@@ -17,7 +17,7 @@ void testValidationCallBack() {
           onAuthSubmit: (loginModel) async {
             return false;
           },
-          onEmailValidation: (_) => _.length > 3,
+          onValidation: (__, _) => _.length > 3,
         ),
       ));
       await tester.tap(
@@ -38,7 +38,7 @@ void testValidationCallBack() {
           onAuthSubmit: (loginModel) async {
             return false;
           },
-          onEmailValidation: (_) => _.length > 3,
+          onValidation: (__, _) => _.length > 3,
         ),
       ));
       await tester.tap(
@@ -65,7 +65,7 @@ void testValidationCallBack() {
           onAuthSubmit: (loginModel) async {
             return false;
           },
-          onNameValidation: (_) => _.length > 3,
+          onValidation: (__, _) => _.length > 3,
         ),
       ));
       await tester.tap(
@@ -85,7 +85,7 @@ void testValidationCallBack() {
           onAuthSubmit: (loginModel) async {
             return false;
           },
-          onEmailValidation: (_) => _.length > 3,
+          onValidation: (__, _) => _.length > 3,
         ),
       ));
       await tester.tap(
@@ -112,7 +112,7 @@ void testValidationCallBack() {
           onAuthSubmit: (loginModel) async {
             return false;
           },
-          onPasswordValidation: (_) => _.length > 3,
+          onValidation: (__, _) => _.length > 3,
         ),
       ));
       await tester.tap(
@@ -134,7 +134,7 @@ void testValidationCallBack() {
           onAuthSubmit: (loginModel) async {
             return true;
           },
-          onPasswordValidation: (_) => _.length > 3,
+          onValidation: (__, _) => _.length > 3,
           loadingWidget: const SizedBox(),
         ),
       ));

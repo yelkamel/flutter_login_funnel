@@ -20,7 +20,7 @@ class LoginFunnelNextButtonWidgetUtils extends StatelessWidget {
       color: color ?? Theme.of(context).colorScheme.primary,
       child: Text(
         text ?? 'Next',
-        style: Theme.of(context).textTheme.button!.copyWith(
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(
               color: Theme.of(context).colorScheme.onPrimary,
             ),
       ),

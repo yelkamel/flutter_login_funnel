@@ -39,9 +39,7 @@ class LoginScreen extends StatelessWidget {
     return LoginFunnel(
       loadingWidget: const CircularProgressIndicator(),
       backWidget: const Icon(Icons.arrow_back),
-      onEmailValidation: (_) => _.contains('@'),
-      onPasswordValidation: (_) => _.length > 3,
-      onNameValidation: (_) => _.length > 3,
+      onValidation: (__, _) => _.length > 3,
       onAuthSubmit: (_) async {
         if (!_.createAccount) {
           final res = signInWithEmailAndPassword(_.email, _.password);

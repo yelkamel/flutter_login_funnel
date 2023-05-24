@@ -29,7 +29,7 @@ class LoginFunnelTopSectionWidgetUtils extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleStyle = Theme.of(context).textTheme.bodyText1!.copyWith(
+    final titleStyle = Theme.of(context).textTheme.bodyLarge!.copyWith(
           fontSize: 30,
           fontWeight: FontWeight.w600,
           letterSpacing: -0.4,
