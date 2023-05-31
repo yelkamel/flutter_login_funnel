@@ -110,6 +110,7 @@ class _LoginFunnelState extends State<LoginFunnel> {
   TextEditingController inputController = TextEditingController();
   LoginModel loginModel = LoginModel();
   int indexStep = 0;
+  bool loading = false;
 
   void nameFinish() {
     final name = inputController.text.trim().capitalizeFirst;
@@ -145,14 +146,16 @@ class _LoginFunnelState extends State<LoginFunnel> {
     if (!res) return;
     loginModel.password = password;
 
-    final indexLoadingStep = widget.steps.indexOf(LoginStep.email);
-    setState(() => indexStep = indexLoadingStep);
+    setState(() => loading = true);
     final authRes = await widget.onAuthSubmit?.call(loginModel) ?? false;
 
     if (!authRes) {
       inputController.text = "";
       final indexEmailStep = widget.steps.indexOf(LoginStep.email);
-      setState(() => indexStep = indexEmailStep);
+      setState(() {
+        loading = false;
+        indexStep = indexEmailStep;
+      });
       return;
     }
 
@@ -205,12 +208,15 @@ class _LoginFunnelState extends State<LoginFunnel> {
 
   Widget buildContent() {
     final step = widget.steps[indexStep];
+
+    if (loading) {
+      return Center(
+        key: const ValueKey('LoginFunnelLoading'),
+        child: widget.loadingWidget ?? const CircularProgressIndicator(),
+      );
+    }
+
     switch (step) {
-      case LoginStep.loading:
-        return Center(
-          key: const ValueKey('LoginFunnelLoading'),
-          child: widget.loadingWidget ?? const CircularProgressIndicator(),
-        );
       case LoginStep.init:
         return widget.registerOrConnectBuilder
                 ?.call(context, onRegister, onConnect) ??
