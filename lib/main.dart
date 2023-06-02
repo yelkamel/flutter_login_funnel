@@ -108,45 +108,52 @@ class LoginFunnel extends StatefulWidget {
 
 class _LoginFunnelState extends State<LoginFunnel> {
   TextEditingController inputController = TextEditingController();
-  LoginModel loginModel = LoginModel();
   int indexStep = 0;
   bool loading = false;
+  String name = "";
+  String email = "";
+  String password = "";
+  String firstname = "";
+  bool createAccount = true;
 
   void nameFinish() {
-    final name = inputController.text.trim().capitalizeFirst;
+    name = inputController.text.trim().capitalizeFirst;
     final res = widget.onValidation?.call(LoginStep.name, name) ?? true;
     if (!res) return;
-    loginModel.name = name;
     inputController.text = "";
     setState(() => indexStep++);
   }
 
   void firstNameFinish() {
-    final firstname = inputController.text.trim().capitalizeFirst;
+    firstname = inputController.text.trim().capitalizeFirst;
     final res =
         widget.onValidation?.call(LoginStep.firstname, firstname) ?? true;
     if (!res) return;
-    loginModel.firstname = firstname;
     inputController.text = "";
     setState(() => indexStep++);
   }
 
   void emailFinish() {
-    final email = inputController.text.trim().toLowerCase();
+    email = inputController.text.trim().toLowerCase();
     final res = widget.onValidation?.call(LoginStep.email, email) ?? true;
     if (!res) return;
-    loginModel.email = email;
     inputController.text = "";
     setState(() => indexStep++);
   }
 
   void pwdFinish() async {
-    final password = inputController.text.trim();
+    password = inputController.text.trim();
     final res = widget.onValidation?.call(LoginStep.pwd, password) ?? true;
     if (!res) return;
-    loginModel.password = password;
 
     setState(() => loading = true);
+    final loginModel = LoginModel(
+      name: name,
+      email: email,
+      password: password,
+      firstname: firstname,
+      createAccount: createAccount,
+    );
     final authRes = await widget.onAuthSubmit?.call(loginModel) ?? false;
 
     if (!authRes) {
@@ -180,30 +187,34 @@ class _LoginFunnelState extends State<LoginFunnel> {
     }
 
     if (step == LoginStep.email) {
-      if (!loginModel.createAccount) {
+      if (!createAccount) {
         setState(() => indexStep = 0);
         return;
       }
-      inputController.text = loginModel.name;
+      inputController.text = name;
     }
 
     if (step == LoginStep.pwd) {
-      inputController.text = loginModel.email;
+      inputController.text = email;
     }
     setState(() => indexStep--);
   }
 
   void onRegister() {
     inputController.text = "";
-    loginModel.createAccount = true;
-    setState(() => indexStep++);
+    setState(() {
+      createAccount = true;
+      indexStep = indexStep + 1;
+    });
   }
 
   void onConnect() {
     inputController.text = "";
-    loginModel.createAccount = false;
     final indexEmailStep = widget.steps.indexOf(LoginStep.email);
-    setState(() => indexStep = indexEmailStep);
+    setState(() {
+      createAccount = false;
+      indexStep = indexEmailStep;
+    });
   }
 
   Widget buildContent() {
@@ -239,7 +250,13 @@ class _LoginFunnelState extends State<LoginFunnel> {
   @override
   Widget build(BuildContext context) {
     final step = widget.steps[indexStep];
-
+    final loginModel = LoginModel(
+      name: name,
+      email: email,
+      password: password,
+      firstname: firstname,
+      createAccount: createAccount,
+    );
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
