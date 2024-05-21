@@ -34,10 +34,9 @@ class _LoginInputState extends State<LoginInput> {
     double coef = 0.3;
     double fontSizedRatio = 1;
 
-    if (text.length > 5) coef = 0.6;
-    if (text.length > 10) coef = 0.8;
-    if (text.length > 20) fontSizedRatio = 0.8;
-    if (text.length > 25) fontSizedRatio = 0.6;
+    if (text.length > 5) coef = 0.4;
+    if (text.length > 10) coef = 0.6;
+    if (text.length > 25) fontSizedRatio = 0.8;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +69,7 @@ class _LoginInputState extends State<LoginInput> {
                         },
                         icon: Icon(
                           hide ? Icons.remove_red_eye : Icons.password,
-                          color: Theme.of(context).colorScheme.onBackground,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     )
@@ -79,14 +78,14 @@ class _LoginInputState extends State<LoginInput> {
               hintText: '',
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
-              hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+              hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w400,
                     fontSize: 32,
                   ),
             ),
             onChanged: (value) => setState(() => text = value),
             autocorrect: false,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 32 * fontSizedRatio,
                 ),
@@ -99,7 +98,7 @@ class _LoginInputState extends State<LoginInput> {
         AnimatedContainer(
           height: 1,
           width: MediaQuery.of(context).size.width * coef,
-          color: Theme.of(context).textTheme.bodyText1!.color,
+          color: Theme.of(context).textTheme.bodyMedium!.color,
           duration: const Duration(milliseconds: 500),
         )
       ],
